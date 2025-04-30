@@ -1,4 +1,4 @@
-# AD7405_FMC HDL Project
+# AD7405-FMC HDL Project
 
 - Evaluation board product page: [EVAL-AD7405](https://www.analog.com/eval-ad7405)
 - System documentation: TO BE ADDED
@@ -10,7 +10,6 @@
 |---------------------------------------------|--------------------------------------------------------|
 | [AD7405](https://www.analog.com/ad7405)     | 16-Bit, Isolated Sigma-Delta Modulator, LVDS Interface |
 | [AD7403](https://www.analog.com/ad7403)     | 16-Bit, Isolated Sigma-Delta Modulator                 |
-| [ADUM7701](https://www.analog.com/adum7701) | 16-Bit, Isolated Sigma-Delta Modulator                 |
 
 ## Building the project
 
