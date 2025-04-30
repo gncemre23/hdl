@@ -33,7 +33,7 @@
 // ***************************************************************************
 // ***************************************************************************
 
-`timescale 1ns/100ps
+`timescale 1ns / 100ps
 
 module axi_clock_monitor #(
 
@@ -102,7 +102,7 @@ module axi_clock_monitor #(
                                (DIV_RATE == 4'd8) ? "8" : "0";
   localparam  SEVEN_SERIES    = 1;
   localparam  ULTRASCALE      = 2;
-  localparam  ULTRASCALE_PLUS = 3; 
+  localparam  ULTRASCALE_PLUS = 3;
 
   // internal registers
 
@@ -196,7 +196,7 @@ module axi_clock_monitor #(
           5'h01: up_rdata_int <= ID;
 
           /* Core configuration */
-          5'h02: up_rdata_int <= {14'h00, div_rate_s}; 
+          5'h02: up_rdata_int <= {14'h00, div_rate_s};
           5'h03: up_rdata_int <= NUM_OF_CLOCKS;
           5'h04: up_rdata_int <= {31'h00, up_reset_core};
 
@@ -227,47 +227,45 @@ module axi_clock_monitor #(
   // clock monitors
 
   assign div_rate_s = (FPGA_TECHNOLOGY == SEVEN_SERIES || FPGA_TECHNOLOGY ==  ULTRASCALE || FPGA_TECHNOLOGY ==  ULTRASCALE_PLUS) ?   DIV_RATE : 8'b1;
- 
+
   generate
     for (n = 0; n < NUM_OF_CLOCKS; n = n + 1) begin: clk_mon
       if(FPGA_TECHNOLOGY == SEVEN_SERIES) begin
         BUFR #(
-          .BUFR_DIVIDE(DIV_VALUE),  
+          .BUFR_DIVIDE(DIV_VALUE),
           .SIM_DEVICE("7SERIES")
-        )
-        BUFR_inst (
-          .CLR(1'b0),  
-          .CE(1'b1),  
+        ) BUFR_inst (
+          .CLR(1'b0),
+          .CE(1'b1),
           .I(clock[n]),
-          .O(clock_div[n])
-        );
+          .O(clock_div[n]));
       end else if(FPGA_TECHNOLOGY == ULTRASCALE || FPGA_TECHNOLOGY == ULTRASCALE_PLUS) begin
         BUFGCE_DIV #(
-         .BUFGCE_DIVIDE(DIV_RATE),
-         .IS_CE_INVERTED(1'b0),
-         .IS_CLR_INVERTED(1'b0),
-         .IS_I_INVERTED(1'b0)
+          .BUFGCE_DIVIDE(DIV_RATE),
+          .IS_CE_INVERTED(1'b0),
+          .IS_CLR_INVERTED(1'b0),
+          .IS_I_INVERTED(1'b0)
         ) i_div_clk_buf (
-         .O(clock_div[n]),
-         .CE(1'b1),
-         .CLR(1'b0),
-         .I(clock[n]));
+          .O(clock_div[n]),
+          .CE(1'b1),
+          .CLR(1'b0),
+          .I(clock[n]));
       end else begin
         assign clock_div[n] = clock[n];
       end
       up_clock_mon #(
-           .TOTAL_WIDTH(21)
-         ) i_clock_mon (
-           .up_rstn(~up_reset_core),
-           .up_clk(up_clk),
-           .up_d_count(clk_mon_count[n]),
-           .d_rst(1'b0),
-           .d_clk(clock_div[n]));
+        .TOTAL_WIDTH(21)
+      ) i_clock_mon (
+        .up_rstn(~up_reset_core),
+        .up_clk(up_clk),
+        .up_d_count(clk_mon_count[n]),
+        .d_rst(1'b0),
+        .d_clk(clock_div[n]));
     end
     for (n = NUM_OF_CLOCKS; n < 16; n = n + 1) begin: clk_mon_z
       assign clk_mon_count[n] = 21'd0;
     end
-     
+
   endgenerate
 
   // axi interface
