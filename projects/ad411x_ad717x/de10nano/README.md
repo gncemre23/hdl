@@ -1,4 +1,4 @@
-# AD411X_AD717X/DE10NANO HDL Project
+# AD411X-AD717X/DE10NANO HDL Project
 
 ## Building the project
 

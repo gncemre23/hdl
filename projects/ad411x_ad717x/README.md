@@ -1,4 +1,4 @@
-# AD411X_AD717X HDL Project
+# AD411X-AD717X HDL Project
 
 - Evaluation boards product page: [EVAL-AD4111](https://www.analog.com/eval-ad4111), [EVAL-AD4112](https://www.analog.com/eval-ad4112), [EVAL-AD4114](https://www.analog.com/eval-ad4114), [EVAL-AD4115](https://www.analog.com/eval-ad4115), [EVAL-AD4116](https://www.analog.com/eval-ad4116), [EVAL-AD7172-2](https://www.analog.com/ad7172-2), [EVAL-AD7172-4](https://www.analog.com/ad7172-4), [EVAL-AD7173-8](https://www.analog.com/ad7173-8), [EVAL-AD7175-2](https://www.analog.com/ad7175-2), [EVAL-AD7175-8](https://www.analog.com/ad7175-8), [EVAL-AD7176-2](https://www.analog.com/ad7176-2), [EVAL-AD7177-2](https://www.analog.com/ad7177-2)
 - System documentation: https://wiki.analog.com/resources/tools-software/product-support-software/ad717x_ad411x_mbed_example
