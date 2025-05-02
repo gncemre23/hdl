@@ -361,7 +361,7 @@ module axi_ad9361_tx_channel #(
   assign up_wack = up_wack_s;
   assign up_rack = up_rack_s;
   assign up_rdata = up_rdata_s;
-
+  assign dac_data_sel_s = 4'h2;
   up_dac_channel #(
     .COMMON_ID (6'h11),
     .CHANNEL_ID (CHANNEL_ID),
@@ -380,7 +380,7 @@ module axi_ad9361_tx_channel #(
     .dac_dds_incr_2 (dac_dds_incr_2_s),
     .dac_pat_data_1 (dac_pat_data_1_s),
     .dac_pat_data_2 (dac_pat_data_2_s),
-    .dac_data_sel (dac_data_sel_s),
+//    .dac_data_sel (dac_data_sel_s),
     .dac_iq_mode (),
     .dac_iqcor_enb (dac_iqcor_enb_s),
     .dac_iqcor_coeff_1 (dac_iqcor_coeff_1_s),
