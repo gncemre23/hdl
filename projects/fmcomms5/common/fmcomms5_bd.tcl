@@ -53,13 +53,7 @@ ad_connect $sys_cpu_resetn sys_100m_resetn
 ad_ip_instance axi_ad9361 axi_ad9361_0
 ad_ip_parameter axi_ad9361_0 CONFIG.ID 0
 ad_ip_parameter axi_ad9361_0 CONFIG.IO_DELAY_GROUP dev_0_if_delay_group
-ad_ip_parameter axi_ad9361_0 CONFIG.DAC_DATAPATH_DISABLE 1
-ad_ip_parameter axi_ad9361_0 CONFIG.ADC_DATAPATH_DISABLE 1
-ad_ip_parameter axi_ad9361_0 CONFIG.DAC_IQCORRECTION_DISABLE 1
-ad_ip_parameter axi_ad9361_0 CONFIG.ADC_IQCORRECTION_DISABLE 1
-ad_ip_parameter axi_ad9361_0 CONFIG.ADC_DCFILTER_DISABLE 1
-ad_ip_parameter axi_ad9361_0 CONFIG.DAC_DDS_DISABLE 1
-ad_ip_parameter axi_ad9361_0 CONFIG.TDD_DISABLE 1
+
 ad_connect $sys_iodelay_clk axi_ad9361_0/delay_clk
 ad_connect axi_ad9361_0/l_clk axi_ad9361_0/clk
 ad_connect axi_ad9361_0/dac_sync_out axi_ad9361_0/dac_sync_in
@@ -145,20 +139,6 @@ ad_connect axi_ad9361_0/rst util_ad9361_adc_fifo/din_rst
 ad_connect util_ad9361_divclk/clk_out util_ad9361_adc_fifo/dout_clk
 ad_connect util_ad9361_divclk_reset/peripheral_aresetn util_ad9361_adc_fifo/dout_rstn
 
-ad_connect axi_ad9361_1/adc_enable_i0 util_ad9361_adc_fifo/din_enable_4
-ad_connect axi_ad9361_1/adc_valid_i0 util_ad9361_adc_fifo/din_valid_4
-ad_connect axi_ad9361_1/adc_data_i0 util_ad9361_adc_fifo/din_data_4
-ad_connect axi_ad9361_1/adc_enable_q0 util_ad9361_adc_fifo/din_enable_5
-ad_connect axi_ad9361_1/adc_valid_q0 util_ad9361_adc_fifo/din_valid_5
-ad_connect axi_ad9361_1/adc_data_q0 util_ad9361_adc_fifo/din_data_5
-ad_connect axi_ad9361_1/adc_enable_i1 util_ad9361_adc_fifo/din_enable_6
-ad_connect axi_ad9361_1/adc_valid_i1 util_ad9361_adc_fifo/din_valid_6
-ad_connect axi_ad9361_1/adc_data_i1 util_ad9361_adc_fifo/din_data_6
-ad_connect axi_ad9361_1/adc_enable_q1 util_ad9361_adc_fifo/din_enable_7
-ad_connect axi_ad9361_1/adc_valid_q1 util_ad9361_adc_fifo/din_valid_7
-ad_connect axi_ad9361_1/adc_data_q1 util_ad9361_adc_fifo/din_data_7
-ad_connect util_ad9361_adc_fifo/din_ovf axi_ad9361_0/adc_dovf
-ad_connect util_ad9361_adc_fifo/din_ovf axi_ad9361_1/adc_dovf
 
 # adc-path channel pack
 
@@ -316,12 +296,20 @@ ad_connect axi_ad9361_0/adc_valid_i1 adaptive_nulling_0/valid_i1_adc
 ad_connect axi_ad9361_0/adc_data_i1 adaptive_nulling_0/data_i1_adc
 ad_connect axi_ad9361_0/adc_valid_q1 adaptive_nulling_0/valid_q1_adc
 ad_connect axi_ad9361_0/adc_data_q1 adaptive_nulling_0/data_q1_adc
+ad_connect axi_ad9361_1/adc_valid_i0 adaptive_nulling_0/valid_i2_adc
+ad_connect axi_ad9361_1/adc_data_i0 adaptive_nulling_0/data_i2_adc
+ad_connect axi_ad9361_1/adc_valid_q0 adaptive_nulling_0/valid_q2_adc
+ad_connect axi_ad9361_1/adc_data_q0 adaptive_nulling_0/data_q2_adc
+ad_connect axi_ad9361_1/adc_valid_i1 adaptive_nulling_0/valid_i3_adc
+ad_connect axi_ad9361_1/adc_data_i1 adaptive_nulling_0/data_i3_adc
+ad_connect axi_ad9361_1/adc_valid_q1 adaptive_nulling_0/valid_q3_adc
+ad_connect axi_ad9361_1/adc_data_q1 adaptive_nulling_0/data_q3_adc
+
 
 # Direct DAC connections from anti-jamming core to AD9361
 ad_connect adaptive_nulling_0/data_i0_dac axi_ad9361_0/dac_data_i0
 ad_connect adaptive_nulling_0/data_q0_dac axi_ad9361_0/dac_data_q0
-ad_connect adaptive_nulling_0/data_i1_dac axi_ad9361_0/dac_data_i1
-ad_connect adaptive_nulling_0/data_q1_dac axi_ad9361_0/dac_data_q1
+
 
 # Disconnect the original paths (these need to be commented out in the TCL file)
 # ad_connect axi_ad9361_dac_fifo/dout_data_0 axi_ad9361_0/dac_data_i0

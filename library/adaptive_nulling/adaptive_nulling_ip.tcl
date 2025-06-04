@@ -5,13 +5,13 @@ source $ad_hdl_dir/library/scripts/adi_ip_xilinx.tcl
 adi_ip_create adaptive_nulling
 adi_ip_files adaptive_nulling [list \
   "../../../fpga/design/adaptive_nulling.v" \
-  "../../../fpga/design/adaptive_nulling_top.v" \
+  "../../../fpga/design/adaptive_nulling_top.sv" \
   "../../../fpga/design/asyncFIFO.v" \
-  "../../../fpga/design/covariance.v" \
+  "../../../fpga/design/covariance.sv" \
   "../../../fpga/design/fixedpoint.v" \
-  "../../../fpga/design/matrix_inverse_2x2.v" \
-  "../../../fpga/design/mult_pipe_split3.v" \
-  "../../../fpga/design/mult_pipe_split4.v"
+  "../../../fpga/design/weight_calc.sv" \
+  "../../../fpga/design/complex_mult.sv" \
+  "../../../fpga/design/mult_pipe_split3.v"
 ]
 
 adi_ip_properties_lite adaptive_nulling
