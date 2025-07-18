@@ -188,28 +188,7 @@ ad_connect axi_ad9361_0/l_clk axi_ad9361_dac_fifo/dout_clk
 ad_connect axi_ad9361_0/rst axi_ad9361_dac_fifo/dout_rst
 ad_connect util_ad9361_divclk/clk_out axi_ad9361_dac_fifo/din_clk
 ad_connect util_ad9361_divclk_reset/peripheral_aresetn axi_ad9361_dac_fifo/din_rstn
-ad_connect axi_ad9361_dac_fifo/dout_enable_0 axi_ad9361_0/dac_enable_i0
-ad_connect axi_ad9361_dac_fifo/dout_valid_0 axi_ad9361_0/dac_valid_i0
-ad_connect axi_ad9361_dac_fifo/dout_enable_1 axi_ad9361_0/dac_enable_q0
-ad_connect axi_ad9361_dac_fifo/dout_valid_1 axi_ad9361_0/dac_valid_q0
-ad_connect axi_ad9361_dac_fifo/dout_enable_2 axi_ad9361_0/dac_enable_i1
-ad_connect axi_ad9361_dac_fifo/dout_valid_2 axi_ad9361_0/dac_valid_i1
-ad_connect axi_ad9361_dac_fifo/dout_enable_3 axi_ad9361_0/dac_enable_q1
-ad_connect axi_ad9361_dac_fifo/dout_valid_3 axi_ad9361_0/dac_valid_q1
-ad_connect axi_ad9361_dac_fifo/dout_enable_4 axi_ad9361_1/dac_enable_i0
-ad_connect axi_ad9361_dac_fifo/dout_valid_4 axi_ad9361_1/dac_valid_i0
-ad_connect axi_ad9361_dac_fifo/dout_data_4 axi_ad9361_1/dac_data_i0
-ad_connect axi_ad9361_dac_fifo/dout_enable_5 axi_ad9361_1/dac_enable_q0
-ad_connect axi_ad9361_dac_fifo/dout_valid_5 axi_ad9361_1/dac_valid_q0
-ad_connect axi_ad9361_dac_fifo/dout_data_5 axi_ad9361_1/dac_data_q0
-ad_connect axi_ad9361_dac_fifo/dout_enable_6 axi_ad9361_1/dac_enable_i1
-ad_connect axi_ad9361_dac_fifo/dout_valid_6 axi_ad9361_1/dac_valid_i1
-ad_connect axi_ad9361_dac_fifo/dout_data_6 axi_ad9361_1/dac_data_i1
-ad_connect axi_ad9361_dac_fifo/dout_enable_7 axi_ad9361_1/dac_enable_q1
-ad_connect axi_ad9361_dac_fifo/dout_valid_7 axi_ad9361_1/dac_valid_q1
-ad_connect axi_ad9361_dac_fifo/dout_data_7 axi_ad9361_1/dac_data_q1
-ad_connect axi_ad9361_dac_fifo/dout_unf axi_ad9361_0/dac_dunf
-ad_connect axi_ad9361_dac_fifo/dout_unf axi_ad9361_1/dac_dunf
+
 
 # dac-path channel unpack
 
@@ -309,6 +288,10 @@ ad_connect axi_ad9361_1/adc_data_q1 adaptive_nulling_0/data_q3_adc
 # Direct DAC connections from anti-jamming core to AD9361
 ad_connect adaptive_nulling_0/data_i0_dac axi_ad9361_0/dac_data_i0
 ad_connect adaptive_nulling_0/data_q0_dac axi_ad9361_0/dac_data_q0
+
+ad_connect adaptive_nulling_0/data_i2_dac axi_ad9361_1/dac_data_i0
+ad_connect adaptive_nulling_0/data_q2_dac axi_ad9361_1/dac_data_q0
+
 
 
 # Disconnect the original paths (these need to be commented out in the TCL file)
