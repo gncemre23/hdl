@@ -217,12 +217,6 @@ ad_connect axi_ad9361_dac_fifo/dout_data_0 axi_ad9361_0/dac_data_i0
 ad_connect axi_ad9361_dac_fifo/dout_enable_1 axi_ad9361_0/dac_enable_q0
 ad_connect axi_ad9361_dac_fifo/dout_valid_1 axi_ad9361_0/dac_valid_q0
 ad_connect axi_ad9361_dac_fifo/dout_data_1 axi_ad9361_0/dac_data_q0
-ad_connect axi_ad9361_dac_fifo/dout_enable_2 axi_ad9361_0/dac_enable_i1
-ad_connect axi_ad9361_dac_fifo/dout_valid_2 axi_ad9361_0/dac_valid_i1
-ad_connect axi_ad9361_dac_fifo/dout_data_2 axi_ad9361_0/dac_data_i1
-ad_connect axi_ad9361_dac_fifo/dout_enable_3 axi_ad9361_0/dac_enable_q1
-ad_connect axi_ad9361_dac_fifo/dout_valid_3 axi_ad9361_0/dac_valid_q1
-ad_connect axi_ad9361_dac_fifo/dout_data_3 axi_ad9361_0/dac_data_q1
 ad_connect axi_ad9361_dac_fifo/dout_enable_4 axi_ad9361_1/dac_enable_i0
 ad_connect axi_ad9361_dac_fifo/dout_valid_4 axi_ad9361_1/dac_valid_i0
 ad_connect axi_ad9361_dac_fifo/dout_data_4 axi_ad9361_1/dac_data_i0
@@ -297,3 +291,46 @@ if {$CACHE_COHERENCY} {
 
 ad_cpu_interrupt ps-12 mb-12 axi_ad9361_dac_dma/irq
 ad_cpu_interrupt ps-13 mb-13 axi_ad9361_adc_dma/irq
+
+
+# Add constant for radio_rst
+ad_ip_instance xlconstant xilconstant_0
+ad_ip_parameter xilconstant_0 CONFIG.CONST_VAL 0
+ad_ip_parameter xilconstant_0 CONFIG.CONST_WIDTH 1
+
+# Add GNSS Anti-Jamming IP
+ad_ip_instance adaptive_nulling adaptive_nulling_0
+
+ad_cpu_interconnect 0x83c00000 adaptive_nulling_0
+
+# Clock and reset connections
+ad_connect axi_ad9361_0/l_clk adaptive_nulling_0/clk
+ad_connect xilconstant_0/dout adaptive_nulling_0/radio_rst
+
+ad_connect axi_ad9361_0/s_axi_aclk adaptive_nulling_0/adaptive_nulling_clk
+ad_connect sys_rstgen/peripheral_reset adaptive_nulling_0/adaptive_nulling_rst
+
+# Direct ADC data connections from AD9361 to anti-jamming core
+ad_connect axi_ad9361_0/adc_valid_i0 adaptive_nulling_0/valid_i0_adc
+ad_connect axi_ad9361_0/adc_data_i0 adaptive_nulling_0/data_i0_adc
+ad_connect axi_ad9361_0/adc_valid_q0 adaptive_nulling_0/valid_q0_adc
+ad_connect axi_ad9361_0/adc_data_q0 adaptive_nulling_0/data_q0_adc
+ad_connect axi_ad9361_0/adc_valid_i1 adaptive_nulling_0/valid_i1_adc
+ad_connect axi_ad9361_0/adc_data_i1 adaptive_nulling_0/data_i1_adc
+ad_connect axi_ad9361_0/adc_valid_q1 adaptive_nulling_0/valid_q1_adc
+ad_connect axi_ad9361_0/adc_data_q1 adaptive_nulling_0/data_q1_adc
+ad_connect axi_ad9361_1/adc_valid_i0 adaptive_nulling_0/valid_i2_adc
+ad_connect axi_ad9361_1/adc_data_i0 adaptive_nulling_0/data_i2_adc
+ad_connect axi_ad9361_1/adc_valid_q0 adaptive_nulling_0/valid_q2_adc
+ad_connect axi_ad9361_1/adc_data_q0 adaptive_nulling_0/data_q2_adc
+ad_connect axi_ad9361_1/adc_valid_i1 adaptive_nulling_0/valid_i3_adc
+ad_connect axi_ad9361_1/adc_data_i1 adaptive_nulling_0/data_i3_adc
+ad_connect axi_ad9361_1/adc_valid_q1 adaptive_nulling_0/valid_q3_adc
+ad_connect axi_ad9361_1/adc_data_q1 adaptive_nulling_0/data_q3_adc
+
+
+
+
+# Direct DAC connections from anti-jamming core to AD9361
+ad_connect adaptive_nulling_0/data_i0_dac axi_ad9361_0/dac_data_i1
+ad_connect adaptive_nulling_0/data_q0_dac axi_ad9361_0/dac_data_q1
